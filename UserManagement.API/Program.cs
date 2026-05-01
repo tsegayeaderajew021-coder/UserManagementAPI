@@ -44,9 +44,15 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    
 }
+// Move these two lines outside of the "if" block
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+    options.RoutePrefix = string.Empty; // This makes Swagger the home page
+});
 
 app.UseAuthentication(); // ይህ የግድ መኖር አለበት
 app.UseAuthorization();
